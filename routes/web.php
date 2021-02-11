@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/*Route::get('/', function () {
+    return view('pages.index');
+});*/
+
+//Route::get('/', 'PagesController@index'); 
+Route::get('/', 'PointsController@etterem');
+
+
