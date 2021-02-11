@@ -5,12 +5,17 @@
 @if (count($points)>0)
     @foreach ($points as $point)
     <div class="well">
-        <h3>{{$point->name}}</h3>
-        <small>Étterem típusa: {{$point->type}}</small>
+        <a href={{$point->link}}><h3>{{$point->name}}</h3></a>
+        
+        <small> {{$point->type}}</small>
     </div>
     
     @endforeach
     
+    <span>
+        {{$points->links()}}
+    </span>
+
 @endif
 
 
