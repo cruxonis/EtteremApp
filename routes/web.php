@@ -16,6 +16,17 @@
 });*/
 
 //Route::get('/', 'PagesController@index'); 
-Route::get('/', 'PointsController@etterem');
+
+Route::get('createPoint', 'PointsController@form');
+Route::get('createFood', 'FoodsController@index');
+
+
+
+ Route::post('/create','PointsController@store');
+
+
+ Route::get('/', 'PointsController@load');
+ Route::post('/load_data', 'PointsController@load_data')->name('loadmore.load_data');
+
 
 

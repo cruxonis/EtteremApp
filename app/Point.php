@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Point extends Model
 {
-   public $name;
-   public $type;
-   public $link;
+    protected $table= "points";
+   /* public $id;
+    public $name;
+    public $type;
+    public $link;
    
-   function __construct($param1, $param2, $param3) {
+    function __construct($param0, $param1, $param2, $param3) {
+        $this->id= $param0;
         $this->name= $param1;
         $this->type= $param2;
         $this->link= $param3;
-    }
+    }*/
 }

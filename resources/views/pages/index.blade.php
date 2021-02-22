@@ -1,22 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
+
+<div>
+    <a class="btn" href="/createPoint"><button class="btn" type="submit">Étterem hozzáadása</button></a>
+    <a class="btn" href="/createFood"><button class="btn" type="submit">Étel hozzáadása</button></a>
+</div>
 <h1>Mai Ajánlatunk</h1>
-@if (count($points)>0)
-    @foreach ($points as $point)
-    <div class="well">
-        <a href={{$point->link}}><h3>{{$point->name}}</h3></a>
-        
-        <small> {{$point->type}}</small>
-    </div>
-    
-    @endforeach
-    
-    <span>
-        {{$points->links()}}
-    </span>
 
-@endif
 
+<div class="panel-body">
+    {{ csrf_field() }}
+    <div id="post_data"></div>
+   </div>
+   
+
+    
+    
+
+
+    
+
+<hr>
 
 @endsection
