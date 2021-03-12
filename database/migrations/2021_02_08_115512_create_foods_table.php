@@ -19,10 +19,15 @@ class CreateFoodsTable extends Migration
             $table->json('ingredients');
             $table->text('description');
             $table->json('categories');
+            
             $table->integer('point_id')->unsigned();
             $table->foreign('point_id')->references('id')->on('points');
+            
+
             $table->timestamps();
         });
+
+        
     }
 
     /**

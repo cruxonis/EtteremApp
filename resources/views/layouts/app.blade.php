@@ -55,6 +55,7 @@
 
     </head>
     <body>
+        @include('inc.messages')
         @yield('content')
     </body>
 </html>

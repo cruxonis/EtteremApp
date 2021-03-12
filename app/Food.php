@@ -6,11 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Food extends Model
 {
-    protected $castsIng = [
-        'ingredients' => 'array'
+    protected $table= "foods";
+
+    protected $casts = [
+        'ingredients' => 'array', 'categories' => 'array'
     ];
     
-    protected $castsCat = [
-        'categories' => 'array'
-    ];
+   
+
+
+    public function points(){
+        return $this->belongsTo('App/Point');
+    }
+
 }

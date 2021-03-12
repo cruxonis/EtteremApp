@@ -18,4 +18,8 @@ class Point extends Model
         $this->type= $param2;
         $this->link= $param3;
     }*/
+
+    public function food(){
+        return $this->hasMany('App\Food');
+    }
 }

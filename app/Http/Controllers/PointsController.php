@@ -65,7 +65,7 @@ class PointsController extends Controller
         $output .= '
         <div class="row">
          <div class="well">
-          <a href=""><h3 class="text-info"><b>'.$row->name.'</b></h3></a>
+          <a href="/etteremlap/'.$row->id.'"><h3 class="text-info"><b>'.$row->name.'</b></h3></a>
           <p>'.$row->type.'</p>
           <br />
           
@@ -91,5 +91,15 @@ class PointsController extends Controller
       echo $output;
      }
     }
+    
+
+        public function show($id){
+            $post= Point::find($id);
+            $menus=$post->food()->get();
+           
+            return view("pages.etteremlap")->with(array("post" => $post, "menus" => $menus));
+            
+            // return view('pages.etteremlap')->with('post', $post);
+        }
     
 }
