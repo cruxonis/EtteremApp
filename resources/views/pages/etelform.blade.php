@@ -3,10 +3,10 @@
 @section('content')
 <h1>Andj hozzá ételt</h1>
 
-
+<?php var_dump(request()->route('id')); ?>
 {!!Form::open(['action'=>'FoodsController@store', 'method'=>'POST'])!!}
 <div class="form-group">
-
+  
     <div class="form-group">
         @if(is_null( request()->route('id')))
         {{Form::label('type', 'Étterem:')}}

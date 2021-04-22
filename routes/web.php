@@ -29,12 +29,17 @@ Route::get('createFood', 'FoodsController@form');
  Route::get('/', 'PointsController@load');
  
 
- Route::post('/load_data', 'PointsController@load_data')->name('loadmore.load_data');
-
+ Route::post('/load_points', 'PointsController@load_points')->name('loadmore.load_points');
+ Route::post('/load_foods', 'FoodsController@load_foods')->name('loadmore.load_foods');
+Route::post('/not_stored', 'FoodsController@not_stored')->name('loadmore.not_stored');
 
 
 Route::resource('etteremlap', 'PointsController');
 
-    
+
+
+
+
+
 Route::get('etteremlap', 'FoodsController@index');
-Route::get('createFood/{id}', 'FoodsController@show');
+Route::get('createFood/{id}', 'FoodsController@showForm');

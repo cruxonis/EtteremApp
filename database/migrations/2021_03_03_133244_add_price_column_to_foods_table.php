@@ -16,6 +16,7 @@ class AddPriceColumnToFoodsTable extends Migration
         Schema::table('foods', function (Blueprint $table) {
             //
             $table->integer('price')->after('name');
+            $table->integer('not_stored')->after('point_id');
         });
     }
 

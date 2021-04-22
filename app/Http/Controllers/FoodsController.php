@@ -42,7 +42,7 @@ class FoodsController extends Controller
         return redirect('/etteremlap/'.$food->point_id);
     }
 
-    public function show($id){
+    public function showForm($id){
       $post= Point::all();
       $post2= Point::find($id);
         
@@ -52,14 +52,20 @@ class FoodsController extends Controller
     
 
     }
-    function load_food(Request $request)
+    function load_foods( Request $request)
     {
+
+       
+       
      if($request->ajax())
      {
-      if($request->point_id > 0)
+      
+      if($request->id > 0)
       {
        $data = DB::table('foods')
-          ->where('point_id', '<', $request->point_id)
+          ->where('id', '<', $request->id )
+          ->where('point_id', '=',$request->urlId)
+          ->where('not_stored', '<',5 )
           ->orderBy('id', 'DESC')
           ->limit(5)
           ->get();
@@ -67,10 +73,14 @@ class FoodsController extends Controller
       else
       {
        $data = DB::table('foods')
-          ->orderBy('point_id', 'DESC')
+          ->where('point_id', '=',$request->urlId)
+          ->where('not_stored', '<',5)        
+          ->orderBy('id', 'DESC')
           ->limit(5)
           ->get();
       }
+    
+    }
       $output = '';
       $last_id = '';
       
@@ -79,33 +89,102 @@ class FoodsController extends Controller
           
        foreach($data as $row)
        {
-        $output .= '
-        <div class="row">
-         <div class="well">
-          <h3 class="text-info"><b>'.$row->name.'</b></h3>
-          <p>'.$row->type.'</p>
-          <br />
+           $ings=json_decode($row->ingredients);
+           $categs=json_decode($row->categories);
+
+            $output .= '
+           
+        
+            <div class="row">
+            <div class="well" >
+            <div style= "display: flex">
+            <h3 class="text-info"style="width: 25%"><b>'.$row->name.'</b></h3>
+         
+            <h3 style= "width: 25%"><b>'.$row->price.' Ft</b></h3>
+            <span onclick="toggleDetail('.$row->id.')" style="cursor: pointer;"><i id='.$this->createEyeId($row->id).' style="font-size:24px" class="fa">&#xf06e;</i></span>
+            </div>
           
-         </div>         
-        </div>
-        ';
-        $last_id = $row->point_id;
-       }
-       $output .= '
-       <div id="load_more">
-        <button type="button" name="load_more_button" class="btn btn-success form-control" data-id="'.$last_id.'" id="load_more_button">Load More</button>
-       </div>
-       ';
-      }
-      else
-      {
-       $output .= '
-       <div id="load_more">
-        <button type="button" name="load_more_button" class="btn btn-info form-control">No Data Found</button>
-       </div>
-       ';
-      }
-      echo $output;
-     }
+            <div style= "display:  none "  class="secret" id="'. $row->id .'">
+            <p style="width: 50%">'. $row->description.'</p>
+            <div style= "width: 25%"> '.$this->createIngredientsHtmlString($ings) .'</div>
+            <div style= "width: 25%">'.$this->createCategoriessHtmlString($categs).'</div>
+            <div style= "width: 25%"><button onclick="notInStore('.$row->id.')" id="'.$this->createButtonId($row->id).'">Már nem kapható</button></div> 
+            </div>
+            </div>         
+            </div>
+            ';
+
+            $last_id = $row->id;
+                }
+            $output .= '
+            <div id="load_more">
+            <button type="button" name="load_more_button" class="btn btn-success form-control" data-id="'.$last_id.'" id="load_more_button">Load More</button>
+            </div>
+                ';
+            }
+                else
+            {
+            $output .= '
+                <div id="load_more">
+                    <button type="button" name="load_more_button" class="btn btn-info form-control" >No Data Found</button>
+                </div>
+                ';
+                }
+                echo $output;
+      
+                        }
+    
+    
+    
+    
+    public function createIngredientsHtmlString($ings){
+        $ingredis='<ul>';
+        
+        foreach($ings as $ing){
+           $ingredis= $ingredis .
+           '<li>'.$ing.'</li>' ;
+        }
+        $ingredis= $ingredis .'</ul>';  
+        return $ingredis;
+    }
+
+    public function createCategoriessHtmlString($categs){
+        $categes='<ul>';
+        
+        foreach($categs as $categ){
+           $categes= $categes .
+           '<li>'.$categ.'</li>' ;
+        }
+        $categes= $categes .'</ul>';  
+        return $categes;
+    }
+public function createButtonId($id){
+    $buttonId="buttonId" ;
+
+    $buttonId=$buttonId.$id;
+        
+    
+    return $buttonId;
+}
+public function createEyeId($id){
+    $eyeId="eye" ;
+
+    $eyeId=$eyeId.$id;
+        
+    
+    return $eyeId;
+}
+
+public function not_stored(Request $request){
+    if($request->ajax()){
+        $notStored = Food::find($request->id);
+        
+        $notStored->not_stored=$notStored->not_stored+1;    
+        
+        $notStored->save();    
+            
+        }
     }
 }
+
+

@@ -35,7 +35,7 @@ class PointsController extends Controller
         return view('pages.index'); 
     }
 
-    function load_data(Request $request)
+    function load_points(Request $request)
     {
      if($request->ajax())
      {
