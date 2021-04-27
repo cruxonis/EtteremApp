@@ -19,10 +19,10 @@
 
       var id= "buttonId"+element;
       document.getElementById(id).disabled = true;
-      sendAjaxRequestButton(element, _token);
+      sendAjaxRequestNotStored(element, _token);
      }
  
-    function sendAjaxRequestButton(id="", _token)
+    function sendAjaxRequestNotStored(id="", _token)
       {
         $.ajax({
           url:"{{ route('loadmore.not_stored') }}",
@@ -79,16 +79,10 @@
 
   var after_loading=function(){
   
-  _token = $('input[name="_token"]').val();
-  
- 
-  sendAjaxRequest('', _token, urlId);
- 
-  
- 
-  $(document).on('click', '#load_more_button', buttonLoadMore);
- 
- }
+       _token = $('input[name="_token"]').val(); 
+        sendAjaxRequest('', _token, urlId);
+        $(document).on('click', '#load_more_button', buttonLoadMore);
+      }
   $(document).ready(after_loading);
  
  </script>   
