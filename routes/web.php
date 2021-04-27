@@ -36,10 +36,5 @@ Route::post('/not_stored', 'FoodsController@not_stored')->name('loadmore.not_sto
 
 Route::resource('etteremlap', 'PointsController');
 
-
-
-
-
-
 Route::get('etteremlap', 'FoodsController@index');
 Route::get('createFood/{id}', 'FoodsController@showForm');
