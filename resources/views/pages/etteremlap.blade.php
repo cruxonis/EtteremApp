@@ -41,12 +41,18 @@
       var x = document.getElementById(id); 
       var menu=document.getElementsByClassName('secret');
       var menuLength=menu.length;
-
+      var icon = document.getElementsByClassName('fa');
         if (x.style.display === "none") {
+          for (var i=0; i<icon.length;i++){
+            icon[i].innerHTML ="&#xf06e";
+          }
+          
           for (var i=0; i<menuLength;i++){
             menu[i].style.display='none';
+            
             }
-            document.getElementById(eye).innerHTML ="&#x274C";
+            
+          document.getElementById(eye).innerHTML ="&#x274C";
         x.style.display = "flex";
     
         } else {
