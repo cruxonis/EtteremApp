@@ -21,7 +21,6 @@ Route::get('createPoint', 'PointsController@form');
 Route::get('createFood', 'FoodsController@form');
 
 
-
  Route::post('/create','PointsController@store');
  Route::post('/createFood','FoodsController@store');
 
